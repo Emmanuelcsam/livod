@@ -8,7 +8,9 @@ const { applyCommand } = require('./commands/apply');
 const { initCommand } = require('./commands/init');
 const { cleanCommand } = require('./commands/clean');
 const { aiCommand } = require('./commands/ai');
+const { aiWatchCommand } = require('./commands/ai-watch');
 const { noteCommand } = require('./commands/note');
+const { diffCommand } = require('./commands/diff');
 const { ollamaCommand } = require('./commands/ollama');
 
 async function main() {
@@ -36,7 +38,14 @@ async function main() {
       return;
     case 'ai':
     case 'export':
-      await aiCommand({ repoRoot, options, logger, agent, positionals });
+      if (options.watch) {
+        await aiWatchCommand({ repoRoot, options, logger, agent, positionals });
+      } else {
+        await aiCommand({ repoRoot, options, logger, agent, positionals });
+      }
+      return;
+    case 'diff':
+      await diffCommand({ repoRoot, options, logger, agent, positionals });
       return;
     case 'note':
       await noteCommand({ repoRoot, options, logger, agent, positionals });

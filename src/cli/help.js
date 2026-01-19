@@ -5,8 +5,10 @@ Usage:
   livod start [options]
   livod apply [options]
   livod ai [options]
+  livod ai --watch [options]
   livod export [options]
   livod note <text> [options]
+  livod diff [options]
   livod ollama [ask|prompt|check] [options] [question]
   livod init
   livod clean

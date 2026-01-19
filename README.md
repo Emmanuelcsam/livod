@@ -38,6 +38,7 @@ livod start
 - `docs/cli.md` - full CLI reference
 - `docs/config.md` - config reference and defaults
 - `docs/ai-journal.md` - journal files and event formats
+- `docs/diff.md` - diff output format
 - `docs/ollama.md` - Ollama integration and prompt strategy
 - `docs/architecture.md` - internals and data flow
 - `AGENTS.md` - instructions for other coding agents
@@ -47,7 +48,9 @@ livod start
 - `livod start` - create a sandbox, start watcher, run commands on each change
 - `livod apply` - sync sandbox changes back to the original repo
 - `livod ai` - print AI context (full)
+- `livod ai --watch` - stream AI context after each run
 - `livod export --format compact` - compact context for small models
+- `livod diff` - emit a patch for the last run
 - `livod note "..."` - append intent notes
 - `livod ollama ask "..."` - ask a local model using current context
 
@@ -86,3 +89,11 @@ Enable auto-summaries after every run:
 ## License
 
 MIT
+
+## Release checklist (maintainers)
+
+1. Update version in `package.json`.
+2. `npm install` (updates lockfile if needed).
+3. `npm pack` to generate the tarball.
+4. `git tag -a vX.Y.Z -m \"Livod vX.Y.Z\"`
+5. `gh release create vX.Y.Z ./livod-X.Y.Z.tgz -t \"Livod vX.Y.Z\"`

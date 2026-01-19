@@ -32,12 +32,16 @@ Prints AI context to stdout (defaults to full markdown).
 Options:
 - `--format md|compact|json`
 - `--out <path>`
+- `--watch` (stream updates after each run)
 
 ### `livod export`
 Alias of `livod ai`.
 
 ### `livod note <text>`
 Appends an intent note for the AI journal.
+
+### `livod diff`
+Prints a clean patch for the last run.
 
 ### `livod ollama [ask|prompt|check] [question]`
 Runs a local Ollama model using the current context.

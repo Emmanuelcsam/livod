@@ -69,6 +69,9 @@ function parseArgs(argv) {
         options.format = args[i + 1];
         i += 1;
         break;
+      case '--watch':
+        options.watch = true;
+        break;
       case '--out':
         options.outPath = args[i + 1];
         i += 1;

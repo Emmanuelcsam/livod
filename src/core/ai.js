@@ -679,6 +679,36 @@ async function recordApply({ sandboxRoot, config, agent, targetRoot }) {
   return event;
 }
 
+async function readLastRunDiff({ sandboxRoot, config }) {
+  const aiConfig = resolveAiConfig(config);
+  if (!aiConfig.enabled) return null;
+  const paths = aiPaths(sandboxRoot);
+  const lastRun = await safeReadJson(paths.lastRunPath, null);
+  if (!lastRun) return { patch: '', reason: 'No last run recorded.' };
+  if (!Array.isArray(lastRun.changes) || lastRun.changes.length === 0) {
+    return { patch: '', reason: 'Last run had no recorded changes.' };
+  }
+
+  const chunks = [];
+  let missingDiffs = false;
+  for (const change of lastRun.changes) {
+    if (change.diff) {
+      chunks.push(change.diff.trimEnd());
+      chunks.push('');
+    } else {
+      missingDiffs = true;
+      chunks.push(`// No diff recorded for ${change.path} (type: ${change.type}).`);
+      chunks.push('');
+    }
+  }
+
+  const patch = chunks.join('\n');
+  if (missingDiffs && !aiConfig.verbose) {
+    return { patch, reason: 'Some diffs missing. Enable ai.verbose for full patches.' };
+  }
+  return { patch };
+}
+
 module.exports = {
   resolveAiConfig,
   initSession,
@@ -686,5 +716,6 @@ module.exports = {
   recordRun,
   appendIntent,
   exportContext,
-  recordApply
+  recordApply,
+  readLastRunDiff
 };
