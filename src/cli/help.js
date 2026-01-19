@@ -30,6 +30,7 @@ Apply options:
 AI export options:
   --format <md|compact|json>   Output format for ai/export
   --out <path>                Write export output to a file
+  --watch                     Stream context updates after each run
 
 Ollama options:
   --ollama                    Enable Ollama integration
