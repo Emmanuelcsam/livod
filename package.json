@@ -1,0 +1,21 @@
+{
+  "name": "livod",
+  "version": "0.1.0",
+  "description": "Live Code sandbox runner",
+  "license": "MIT",
+  "bin": {
+    "livod": "src/cli/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/cli/index.js",
+    "init": "node src/cli/index.js init"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "diff": "^5.2.0",
+    "picomatch": "^2.3.1"
+  }
+}

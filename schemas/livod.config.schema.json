@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Livod Config",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "watch": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "ignore": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "cmd": { "type": "string" },
+              "cwd": { "type": "string" }
+            },
+            "required": ["cmd"]
+          }
+        ]
+      }
+    },
+    "debounceMs": { "type": "number" },
+    "parallel": { "type": "boolean" },
+    "restartOnChange": { "type": "boolean" },
+    "linkNodeModules": { "type": "boolean" },
+    "applyRequiresSuccess": { "type": "boolean" },
+    "pruneOnApply": { "type": "boolean" },
+    "ai": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "verbose": { "type": "boolean" },
+        "journal": { "type": "boolean" },
+        "includeOutputs": { "type": "boolean" },
+        "maxFileBytes": { "type": "number" },
+        "maxDiffBytes": { "type": "number" },
+        "maxOutputBytes": { "type": "number" },
+        "baseline": { "type": "boolean" },
+        "intentNotes": { "type": "boolean" },
+        "scanAllOnDirChange": { "type": "boolean" },
+        "compact": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "maxDiffLines": { "type": "number" },
+            "maxStdoutLines": { "type": "number" },
+            "maxStderrLines": { "type": "number" }
+          }
+        }
+      }
+    },
+    "ollama": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "model": { "type": "string" },
+        "temperature": { "type": "number" },
+        "systemPrompt": { "type": "string" },
+        "auto": { "type": "boolean" },
+        "autoOnSuccessOnly": { "type": "boolean" },
+        "context": { "type": "string", "enum": ["md", "compact", "json"] },
+        "maxPromptChars": { "type": "number" }
+      }
+    }
+  }
+}
